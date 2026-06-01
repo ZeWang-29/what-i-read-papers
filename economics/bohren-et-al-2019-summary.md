@@ -6,6 +6,14 @@
 
 ## Overview
 
+### High-Level Summary
+
+This paper's core insight is: **signals (quality) are unobservable, but evaluations (history) are observable**. If we assume males and females have the same evaluation history ($v\_M = v\_F$), what can we infer about the source of discrimination?
+
+The key theoretical contribution is not the derivations themselves (Blocks 2–3 use standard Normal-Normal Bayesian updating), but the **assumption-to-identification mapping**: under the assumption that only $v$ (not $s$) is observable, different sources of discrimination (correct beliefs, biased beliefs, preferences) generate **different observable dynamic patterns**. Specifically, whether discrimination reverses or not between novice and advanced stages is a direct test of the underlying source.
+
+What makes this paper work is that this assumption **maps perfectly onto a real-world setting** — platforms like Stack Exchange where reputation (= cumulative evaluations $v$) is publicly visible but the underlying quality of each post ($s$) is not. This allows the authors to exogenously vary gender and reputation in a field experiment and directly test the theoretical predictions. The theory gives the "what to look for"; the platform gives the "where to look."
+
 ### Blocks
 
 This paper has **6 blocks**:
