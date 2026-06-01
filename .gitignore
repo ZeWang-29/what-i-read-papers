@@ -1,0 +1,8 @@
+*.pdf
+*.txt
+
+# Ignore all markdown except summaries and templates
+*.md
+!*-summary.md
+!SUMMARY_TEMPLATE.md
+!README.md
