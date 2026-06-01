@@ -68,6 +68,32 @@ where $\tau_q = \frac{\tau_a \cdot \tau_\varepsilon}{\tau_a + \tau_\varepsilon}$
 - If preference-based partiality: initial discrimination is **constant** w.r.t. $\tau_\eta$
 - In the limit $\tau_\eta \to \infty$ (perfectly objective): discrimination exists iff preference-based partiality exists
 
+### Detailed Derivation of Eq. 5
+
+**Step 1: Prior distribution of quality.** Since $q_1 = a + \varepsilon_1$ with $a \sim N(\hat{\mu}_g, 1/\tau_a)$ and $\varepsilon_1 \sim N(0, 1/\tau_\varepsilon)$ independent, the sum of two independent normals gives:
+
+$$q_1 \sim N\left(\hat{\mu}_g, \; \frac{1}{\tau_a} + \frac{1}{\tau_\varepsilon}\right)$$
+
+The precision of this prior is $\tau_q = \frac{\tau_a \cdot \tau_\varepsilon}{\tau_a + \tau_\varepsilon}$.
+
+**Step 2: Posterior after observing signal.** The signal is $s_1 = q_1 + \eta_1$ where $\eta_1 \sim N(0, 1/\tau_\eta)$. This is standard Normal-Normal Bayesian updating (prior precision $\tau_q$, signal precision $\tau_\eta$), giving a precision-weighted average of prior mean and signal:
+
+$$E[q_1 \mid s_1, g] = \frac{\tau_q \cdot \hat{\mu}_g + \tau_\eta \cdot s_1}{\tau_q + \tau_\eta}$$
+
+**Step 3: Optimal evaluation.** From the quadratic loss $-(v - (q - c_g))^2$, the optimal evaluation is the posterior mean minus the taste parameter:
+
+$$v^*(g, h_1, s_1) = \frac{\tau_q \cdot \hat{\mu}_g + \tau_\eta \cdot s_1}{\tau_q + \tau_\eta} - c_g$$
+
+**Step 4: Discrimination.** Taking the difference $D = v^*(M) - v^*(F)$:
+
+$$D = \frac{\tau_q \hat{\mu}_M + \tau_\eta s_1}{\tau_q + \tau_\eta} - c_M - \frac{\tau_q \hat{\mu}_F + \tau_\eta s_1}{\tau_q + \tau_\eta} + c_F$$
+
+The $s_1$ terms cancel (same signal for both genders), and $c_M = 0$ (normalized), yielding Eq. 5:
+
+$$D(h_1, s_1) = \frac{\tau_q}{\tau_q + \tau_\eta}(\hat{\mu}_M - \hat{\mu}_F) + c_F$$
+
+**Note on originality:** The Normal-Normal updating framework is standard (Phelps 1972, Aigner & Cain 1977). The social psychology literature (Fiske et al. 1991) already observed that subjectivity increases stereotype reliance. This paper's contribution is formalizing $\tau_\eta$ as an **identification tool** — using variation in signal precision to distinguish belief-based from preference-based discrimination — and extending the framework dynamically.
+
 ### Derivation (high-level)
 
 From Eq. 5: the belief-based component is weighted by $\frac{\tau_q}{\tau_q + \tau_\eta}$. As $\tau_\eta$ increases (more precise signal), this weight shrinks → belief about group differences matters less. The preference component $c_F$ is additive and independent of $\tau_\eta$.
