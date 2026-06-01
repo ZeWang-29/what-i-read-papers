@@ -119,13 +119,26 @@ When you can perfectly observe quality (e.g., a math answer is correct or not), 
 - Belief-based partiality ($\hat{\mu}\_M > \hat{\mu}\_F$), no preference-based partiality ($c\_F = 0$)
 - Evaluators correctly model that all others share the same beliefs
 
-### Key Mechanism
+### Key Mechanism + Detailed Derivation of Eq. 6
 
-After period 1, a female who received evaluation $v$ must have produced a higher signal than a male with the same evaluation (from Eq. 6):
+After period 1, a female who received evaluation $v$ must have produced a higher signal than a male with the same evaluation. Here is why.
 
-$$s(v, \hat{\mu}\_g) = \frac{\tau\_q + \tau\_\eta}{\tau\_\eta} \cdot v - \frac{\tau\_q}{\tau\_\eta} \cdot \hat{\mu}\_g$$
+From Block 1, the optimal evaluation (with $c\_g = 0$) is:
 
-Since $\hat{\mu}\_F < \hat{\mu}\_M$, we get $s(v, \hat{\mu}\_F) > s(v, \hat{\mu}\_M)$. So evaluators know the female's evaluation is a stronger signal of ability.
+$$v = \frac{\tau\_q \cdot \hat{\mu}\_g + \tau\_\eta \cdot s}{\tau\_q + \tau\_\eta}$$
+
+The evaluation is a precision-weighted average of the prior mean and the signal. Now **invert** this: given that we observe evaluation $v$, what signal $s$ must the worker have produced?
+
+$$s(v, \hat{\mu}\_g) = \frac{(\tau\_q + \tau\_\eta) \cdot v - \tau\_q \cdot \hat{\mu}\_g}{\tau\_\eta} = \frac{\tau\_q + \tau\_\eta}{\tau\_\eta} \cdot v - \frac{\tau\_q}{\tau\_\eta} \cdot \hat{\mu}\_g$$
+
+This is Eq. 6. Now compare the required signals for male vs. female to achieve the **same** evaluation $v$:
+
+- Female: $s\_F = \frac{(\tau\_q + \tau\_\eta)v - \tau\_q \hat{\mu}\_F}{\tau\_\eta}$
+- Male: $s\_M = \frac{(\tau\_q + \tau\_\eta)v - \tau\_q \hat{\mu}\_M}{\tau\_\eta}$
+
+Since $\hat{\mu}\_F < \hat{\mu}\_M$, we have $-\hat{\mu}\_F > -\hat{\mu}\_M$, therefore $s\_F > s\_M$.
+
+**Intuition:** The evaluation is a weighted average of "prior belief + evidence." The female's prior is lower (evaluator thinks she's less able on average), so this prior **drags down** her evaluation. To reach the same evaluation $v$ as a male, the female's signal must be stronger to compensate for the lower prior. This is deterministic — not probabilistic — because the evaluation formula is a fixed function of the prior and signal. So "must" here is a mathematical certainty: observing the same $v$ logically implies the female had a higher signal.
 
 ### Proposition 2 (Impossibility of Reversal)
 
