@@ -4,7 +4,7 @@
 
 1. Download PDF to `economics/`
 2. Convert: `markitdown paper.pdf -o paper.md`
-3. Write summary following the structure below
+3. Write summary following the structure below. Use LaTeX for all math: `$...$` for inline, `$$...$$` for display equations (renders on both GitHub and Obsidian)
 4. **Iterate**: Each paper read is also an opportunity to refine this template. If the current structure doesn't capture something important, or a section feels redundant, update this template based on that experience.
 
 ## Summary Structure
