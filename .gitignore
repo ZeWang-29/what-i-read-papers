@@ -1,5 +1,6 @@
 *.pdf
 *.txt
+.obsidian/
 
 # Ignore all markdown except summaries and templates
 *.md
