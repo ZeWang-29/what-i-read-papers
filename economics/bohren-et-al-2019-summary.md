@@ -39,38 +39,38 @@ Discrimination on the forum is driven by **biased beliefs** (incorrect stereotyp
 
 ### Assumptions
 
-- Worker has group identity g ∈ {M, F} and unobservable ability a ~ N(μ_g, 1/τ_a)
-- Worker completes tasks with quality q_t = a + ε_t, where ε_t ~ N(0, 1/τ_ε)
-- Evaluator observes signal s_t = q_t + η_t, where η_t ~ N(0, 1/τ_η)
-  - τ_η captures **subjectivity of judgment**: lower τ_η = more subjective
-- Evaluator has type θ_i determining:
-  - Subjective belief about average ability by gender: μ̂_g (may differ from true μ_g)
-  - Taste parameter c_F (disamenity from evaluating female workers)
-  - Subjective belief about other evaluators' type distribution: π̂_i
-- Evaluator maximizes payoff: -( v - (q - c_g) )², so optimal evaluation = E[q | h, s, g] - c_g
+- Worker has group identity $g \in \{M, F\}$ and unobservable ability $a \sim N(\mu_g, 1/\tau_a)$
+- Worker completes tasks with quality $q_t = a + \varepsilon_t$, where $\varepsilon_t \sim N(0, 1/\tau_\varepsilon)$
+- Evaluator observes signal $s_t = q_t + \eta_t$, where $\eta_t \sim N(0, 1/\tau_\eta)$
+  - $\tau_\eta$ captures **subjectivity of judgment**: lower $\tau_\eta$ = more subjective
+- Evaluator has type $\theta_i$ determining:
+  - Subjective belief about average ability by gender: $\hat{\mu}_g$ (may differ from true $\mu_g$)
+  - Taste parameter $c_F$ (disamenity from evaluating female workers)
+  - Subjective belief about other evaluators' type distribution: $\hat{\pi}_i$
+- Evaluator maximizes payoff: $-(v - (q - c_g))^2$, so optimal evaluation $= E[q \mid h, s, g] - c_g$
 
 ### Key Definitions
 
-- **Belief-based partiality**: μ̂_M > μ̂_F (believes men have higher average ability)
-  - Unbiased if μ̂_g = μ_g; biased otherwise
-- **Preference-based partiality**: c_F > 0 (taste against women)
-- **Discrimination**: D(h, s) = v(M, h, s) - v(F, h, s) > 0 (men get higher evaluations for same history and signal)
+- **Belief-based partiality**: $\hat{\mu}_M > \hat{\mu}_F$ (believes men have higher average ability)
+  - Unbiased if $\hat{\mu}_g = \mu_g$; biased otherwise
+- **Preference-based partiality**: $c_F > 0$ (taste against women)
+- **Discrimination**: $D(h, s) = v(M, h, s) - v(F, h, s) > 0$ (men get higher evaluations for same history and signal)
 
 ### Key Formula — Initial Discrimination (Eq. 5)
 
-D(h_1, s_1) = (τ_q / (τ_q + τ_η)) · (μ̂_M − μ̂_F) + c_F
+$$D(h_1, s_1) = \frac{\tau_q}{\tau_q + \tau_\eta} (\hat{\mu}_M - \hat{\mu}_F) + c_F$$
 
-where τ_q = τ_a · τ_ε / (τ_a + τ_ε) is the precision of the prior on quality.
+where $\tau_q = \frac{\tau_a \cdot \tau_\varepsilon}{\tau_a + \tau_\varepsilon}$ is the precision of the prior on quality.
 
 ### Proposition 1 (Subjectivity of Judgment)
 
-- If belief-based partiality: initial discrimination is **decreasing** in τ_η (more objective → less discrimination)
-- If preference-based partiality: initial discrimination is **constant** w.r.t. τ_η
-- In the limit τ_η → ∞ (perfectly objective): discrimination exists iff preference-based partiality exists
+- If belief-based partiality: initial discrimination is **decreasing** in $\tau_\eta$ (more objective → less discrimination)
+- If preference-based partiality: initial discrimination is **constant** w.r.t. $\tau_\eta$
+- In the limit $\tau_\eta \to \infty$ (perfectly objective): discrimination exists iff preference-based partiality exists
 
 ### Derivation (high-level)
 
-From Eq. 5: the belief-based component is weighted by τ_q/(τ_q + τ_η). As τ_η increases (more precise signal), this weight shrinks → belief about group differences matters less. The preference component c_F is additive and independent of τ_η.
+From Eq. 5: the belief-based component is weighted by $\frac{\tau_q}{\tau_q + \tau_\eta}$. As $\tau_\eta$ increases (more precise signal), this weight shrinks → belief about group differences matters less. The preference component $c_F$ is additive and independent of $\tau_\eta$.
 
 ### Intuition
 
@@ -83,16 +83,16 @@ When you can perfectly observe quality (e.g., a math answer is correct or not), 
 ### Assumptions
 
 - Single evaluator type with common knowledge of shared beliefs
-- Belief-based partiality (μ̂_M > μ̂_F), no preference-based partiality (c_F = 0)
+- Belief-based partiality ($\hat{\mu}_M > \hat{\mu}_F$), no preference-based partiality ($c_F = 0$)
 - Evaluators correctly model that all others share the same beliefs
 
 ### Key Mechanism
 
-After period 1, a female who received evaluation v must have produced a higher signal than a male with the same evaluation (from Eq. 6):
+After period 1, a female who received evaluation $v$ must have produced a higher signal than a male with the same evaluation (from Eq. 6):
 
-s(v, μ̂_g) = ((τ_q + τ_η)/τ_η) · v − (τ_q/τ_η) · μ̂_g
+$$s(v, \hat{\mu}_g) = \frac{\tau_q + \tau_\eta}{\tau_\eta} \cdot v - \frac{\tau_q}{\tau_\eta} \cdot \hat{\mu}_g$$
 
-Since μ̂_F < μ̂_M, s(v, μ̂_F) > s(v, μ̂_M). So evaluators know the female's evaluation is a stronger signal of ability.
+Since $\hat{\mu}_F < \hat{\mu}_M$, we get $s(v, \hat{\mu}_F) > s(v, \hat{\mu}_M)$. So evaluators know the female's evaluation is a stronger signal of ability.
 
 ### Proposition 2 (Impossibility of Reversal)
 
@@ -100,7 +100,7 @@ With a single type of evaluator with belief-based partiality and no preference-b
 
 ### Derivation (high-level)
 
-The posterior mean of ability is increasing in the prior mean. Two opposing effects: (i) higher prior mean directly raises posterior (MLRP of prior); (ii) higher prior mean means a lower signal was required to receive the evaluation (MLRP of signal distribution, decreasing in prior mean). The proof shows effect (i) dominates: if you start with μ̂_M > μ̂_F, then posterior mean for male > posterior mean for female after any common evaluation history. Beliefs converge but never cross.
+The posterior mean of ability is increasing in the prior mean. Two opposing effects: (i) higher prior mean directly raises posterior (MLRP of prior); (ii) higher prior mean means a lower signal was required to receive the evaluation (MLRP of signal distribution, decreasing in prior mean). The proof shows effect (i) dominates: if you start with $\hat{\mu}_M > \hat{\mu}_F$, then posterior mean for male > posterior mean for female after any common evaluation history. Beliefs converge but never cross.
 
 ### Intuition
 
@@ -113,31 +113,31 @@ Even though evaluators know the female had to clear a higher bar, the original p
 ### Assumptions
 
 - Two types of evaluators:
-  - **Heuristic type (θ₁)** with probability p: has biased belief-based partiality (μ̂¹_M > μ̂¹_F), unaware of bias, believes all others are the same type (bias blind spot / false consensus)
-  - **Impartial type (θ₂)** with probability 1−p: no belief-based partiality (μ̂²_M = μ̂²_F), aware that heuristic types exist, correctly estimates their prevalence (π̂₂(θ₁) = p)
-- Both types agree on average male ability: μ̂¹_M = μ̂²_M = μ̂_M
+  - **Heuristic type ($\theta_1$)** with probability $p$: has biased belief-based partiality ($\hat{\mu}_M^1 > \hat{\mu}_F^1$), unaware of bias, believes all others are the same type (bias blind spot / false consensus)
+  - **Impartial type ($\theta_2$)** with probability $1-p$: no belief-based partiality ($\hat{\mu}_M^2 = \hat{\mu}_F^2$), aware that heuristic types exist, correctly estimates their prevalence ($\hat{\pi}_2(\theta_1) = p$)
+- Both types agree on average male ability: $\hat{\mu}_M^1 = \hat{\mu}_M^2 = \hat{\mu}_M$
 - No preference-based partiality
 
 ### Key Formula — Initial Aggregate Discrimination (Eq. 7)
 
-D(h_1, s_1) = p · (τ_q / (τ_q + τ_η)) · (μ̂_M − μ̂¹_F) > 0
+$$D(h_1, s_1) = p \cdot \frac{\tau_q}{\tau_q + \tau_\eta} (\hat{\mu}_M - \hat{\mu}_F^1) > 0$$
 
 Only heuristic types contribute to initial discrimination.
 
 ### Proposition 3 (Possibility of Reversal)
 
-For any initial evaluation v₁ (or any second-period signal s₂), there exist cutoffs p̄ such that for a low enough share of heuristic types (p ∈ (0, p̄)) and a high enough signal (or low enough first evaluation), **aggregate discrimination reverses in the second period**: D(v₁, s₂) < 0.
+For any initial evaluation $v_1$ (or any second-period signal $s_2$), there exist cutoffs $\bar{p}$ such that for a low enough share of heuristic types ($p \in (0, \bar{p})$) and a high enough signal (or low enough first evaluation), **aggregate discrimination reverses in the second period**: $D(v_1, s_2) < 0$.
 
 ### Derivation (high-level)
 
 After period 1:
 - Heuristic type: still discriminates against females (by Prop. 2, beliefs don't reverse within a single-type model)
-- Impartial type: knows the female likely faced a biased evaluator → the evaluation is an even stronger signal of her ability → posterior **favors** females (μ̂²_F(v₁) > μ̂²_M(v₁))
+- Impartial type: knows the female likely faced a biased evaluator → the evaluation is an even stronger signal of her ability → posterior **favors** females ($\hat{\mu}_F^2(v_1) > \hat{\mu}_M^2(v_1)$)
 
-Aggregate 2nd-period discrimination = weighted average. Non-monotonic in p:
-- p = 0: no discrimination (all impartial)
-- p = 1: positive discrimination against females (all heuristic, never reverses)
-- Low p: few heuristic evaluators, but impartial types strongly favor females → reversal possible
+Aggregate 2nd-period discrimination = weighted average. Non-monotonic in $p$:
+- $p = 0$: no discrimination (all impartial)
+- $p = 1$: positive discrimination against females (all heuristic, never reverses)
+- Low $p$: few heuristic evaluators, but impartial types strongly favor females → reversal possible
 
 ### Intuition
 
@@ -172,12 +172,12 @@ Tests Proposition 1: if discrimination is belief-based, it should be mitigated w
 
 **Regressions (Table 1):**
 
-1. ΔRep (answers) on Male dummy: coefficient = −1.38 (SE = 0.97), **not significant** → no gender discrimination on answers
-2. Net votes (answers) on Male dummy: coefficient = −0.31 (SE = 0.17), **not significant**
-3. ΔRep (questions, novice) on Male dummy: coefficient = **2.86** (SE = 1.32), **significant** → males earn ~2.86 more reputation points per question
-4. Net votes (questions, novice) on Male dummy: coefficient = **0.58** (SE = 0.27), **significant** → males get ~0.58 more net votes per question
-5. Pooled (questions + answers): Male × Question interaction for ΔRep = **4.24** (SE = 1.64), **significant**
-6. Pooled: Male × Question interaction for net votes = **0.89** (SE = 0.32), **significant**
+1. $\Delta \text{Rep}$ (answers) on Male dummy: coefficient $= -1.38$ (SE $= 0.97$), **not significant** → no gender discrimination on answers
+2. Net votes (answers) on Male dummy: coefficient $= -0.31$ (SE $= 0.17$), **not significant**
+3. $\Delta \text{Rep}$ (questions, novice) on Male dummy: coefficient $= 2.86$ (SE $= 1.32$), **significant** → males earn ~2.86 more reputation points per question
+4. Net votes (questions, novice) on Male dummy: coefficient $= 0.58$ (SE $= 0.27$), **significant** → males get ~0.58 more net votes per question
+5. Pooled (questions + answers): Male $\times$ Question interaction for $\Delta \text{Rep} = 4.24$ (SE $= 1.64$), **significant**
+6. Pooled: Male $\times$ Question interaction for net votes $= 0.89$ (SE $= 0.32$), **significant**
 
 **Interpretation:**
 - No discrimination on answers (objective judgment)
@@ -194,9 +194,9 @@ Tests Proposition 1: if discrimination is belief-based, it should be mitigated w
 ### Design
 
 - **280 accounts** total for questions: 140 Novice (70M, 70F) + 140 Advanced (70M, 70F)
-- **Advanced accounts**: Research assistants manually built reputation to top 25th percentile (≥100 points; mean = 155.23) by posting content
+- **Advanced accounts**: Research assistants manually built reputation to top 25th percentile ($\geq 100$ points; mean $= 155.23$) by posting content
 - **Critical**: After reaching high reputation, **re-randomized gender** of Advanced usernames (35 male→female, 35 female→male, 70 same gender new name). All past activity displays new username. No public record of name change.
-- This ensures informational content of reputation is **identical** across genders for Advanced accounts (mean rep: female 154.57 vs male 155.89, p = 0.82)
+- This ensures informational content of reputation is **identical** across genders for Advanced accounts (mean rep: female $154.57$ vs male $155.89$, $p = 0.82$)
 - Posted 280 original math questions (upper-undergrad to early-grad level), randomly assigned to 4 conditions: male novice, female novice, male advanced, female advanced
 - Posting schedule: 1 question every 20+ min, 5pm–10pm, Mon–Thu
 - Data collected 7 days after posting; 7 of 280 dropped
@@ -211,17 +211,17 @@ Tests Propositions 2 & 3: if discrimination against novice women reverses for ad
 **Regressions (Table 2):**
 
 *Advanced accounts only:*
-1. ΔRep on Male dummy: coefficient = **−3.16** (SE = 1.37), **significant** → advanced females earn MORE reputation than males
-2. Net votes on Male dummy: coefficient = **−0.62** (SE = 0.28), **significant** → advanced females get more net votes
+1. $\Delta \text{Rep}$ on Male dummy: coefficient $= -3.16$ (SE $= 1.37$), **significant** → advanced females earn MORE reputation than males
+2. Net votes on Male dummy: coefficient $= -0.62$ (SE $= 0.28$), **significant** → advanced females get more net votes
 
 *Novice + Advanced pooled:*
-3. ΔRep: Male = 2.86 (SE 1.36), Advanced = −2.33 (SE 1.35), Male × Advanced = **−6.02** (SE 1.91), **significant**
-4. Net votes: Male = 0.58 (SE 0.27), Advanced = −0.49 (SE 0.27), Male × Advanced = **−1.20** (SE 0.38), **significant**
-5. Binary (≥1 upvote): Male = 0.17 (SE 0.08), Advanced = −0.09 (SE 0.08), Male × Advanced = **−0.40** (SE 0.11), **significant**
+3. $\Delta \text{Rep}$: Male $= 2.86$ (SE $1.36$), Advanced $= -2.33$ (SE $1.35$), Male $\times$ Advanced $= -6.02$ (SE $1.91$), **significant**
+4. Net votes: Male $= 0.58$ (SE $0.27$), Advanced $= -0.49$ (SE $0.27$), Male $\times$ Advanced $= -1.20$ (SE $0.38$), **significant**
+5. Binary ($\geq 1$ upvote): Male $= 0.17$ (SE $0.08$), Advanced $= -0.09$ (SE $0.08$), Male $\times$ Advanced $= -0.40$ (SE $0.11$), **significant**
 
 *Chi-squared tests for difference between Novice and Advanced male coefficients:*
-- ΔRep: χ²(1) = 9.88, p = 0.002
-- Net votes: χ²(1) = 10.05, p = 0.002
+- $\Delta \text{Rep}$: $\chi^2(1) = 9.88$, $p = 0.002$
+- Net votes: $\chi^2(1) = 10.05$, $p = 0.002$
 
 **Interpretation:**
 - Novice: males favored (~0.4 SD advantage)
@@ -241,19 +241,19 @@ Tests Propositions 2 & 3: if discrimination against novice women reverses for ad
 - Forum's publicly available observational dataset: 315,792 users, July 2010 – March 2017
 - Gender inferred from usernames using Vasilescu, Capiluppi & Serebrenik (2014) algorithm
 - 55% of accounts resolved; of these, 19% female, 81% male
-- Among accounts with <100 rep: 21% female; accounts with 100–240 rep (Advanced range): 13% female
+- Among accounts with $<100$ rep: 21% female; accounts with 100–240 rep (Advanced range): 13% female
 - Proprietary dataset from the forum: identifies specific users who voted on experimental posts + their historical activity
 
 ### Analyses and Results
 
 **1. Attrition (rules out differential exit by gender):**
-- Probit: Pr(generate next post) on gender, log(reputation earned on prior post), interaction
+- Probit: $\Pr(\text{generate next post})$ on gender, $\log(\text{reputation earned on prior post})$, interaction
 - Gender and interaction terms **not significant** for any transition (1st→2nd, 2nd→3rd, ..., pooled)
 - Conclusion: no differential attrition → reversal not driven by selection
 
 **2. Variance of ability (rules out different variance by gender):**
-- Levene's test on distributions of ΔRep for first answer posts by gender
-- p = 0.41 (mean), p = 0.48 (median), p = 0.46 (trimmed mean) → **not significant**
+- Levene's test on distributions of $\Delta \text{Rep}$ for first answer posts by gender
+- $p = 0.41$ (mean), $p = 0.48$ (median), $p = 0.46$ (trimmed mean) → **not significant**
 - Conclusion: no gender difference in ability variance
 
 **3. Autocorrelation (rules out negative autocorrelation in quality):**
@@ -263,7 +263,7 @@ Tests Propositions 2 & 3: if discrimination against novice women reverses for ad
 - Conclusion: reversal not due to mean reversion in quality
 
 **4. Replication with observational data:**
-- Regressions analogous to Tables 1 & 2 using ΔRep as dependent variable on full observational sample
+- Regressions analogous to Tables 1 & 2 using $\Delta \text{Rep}$ as dependent variable on full observational sample
 - Three main findings mirror experiment:
   - (i) No significant gender discrimination on answers
   - (ii) Novice female questions earn less reputation than novice male questions
@@ -272,7 +272,7 @@ Tests Propositions 2 & 3: if discrimination against novice women reverses for ad
 
 **5. Robustness with proprietary voting data:**
 - Restricted to first vote from each evaluator (excludes repeat votes) → results unchanged
-- Checked whether evaluators of questions vs. answers are similar populations: 48% of votes on questions, 52% on answers (SD = 0.21) → similar voters evaluate both types
+- Checked whether evaluators of questions vs. answers are similar populations: 48% of votes on questions, 52% on answers (SD $= 0.21$) → similar voters evaluate both types
 - No significant differences in evaluator characteristics (reputation, gender) across post types
 
 **Overall conclusion:** Alternative explanations (attrition, variance, autocorrelation) are ruled out. Observational data independently replicates the experimental patterns.
