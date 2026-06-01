@@ -39,64 +39,71 @@ Discrimination on the forum is driven by **biased beliefs** (incorrect stereotyp
 
 ### Assumptions
 
-- Worker has group identity $g \in \{M, F\}$ and unobservable ability $a \sim N(\mu_g, 1/\tau_a)$
-- Worker completes tasks with quality $q_t = a + \varepsilon_t$, where $\varepsilon_t \sim N(0, 1/\tau_\varepsilon)$
-- Evaluator observes signal $s_t = q_t + \eta_t$, where $\eta_t \sim N(0, 1/\tau_\eta)$
-  - $\tau_\eta$ captures **subjectivity of judgment**: lower $\tau_\eta$ = more subjective
-- Evaluator has type $\theta_i$ determining:
-  - Subjective belief about average ability by gender: $\hat{\mu}_g$ (may differ from true $\mu_g$)
-  - Taste parameter $c_F$ (disamenity from evaluating female workers)
-  - Subjective belief about other evaluators' type distribution: $\hat{\pi}_i$
-- Evaluator maximizes payoff: $-(v - (q - c_g))^2$, so optimal evaluation $= E[q \mid h, s, g] - c_g$
+- Worker has group identity $g \in \lbrace M, F \rbrace$ and unobservable ability
+  $a \sim N(\mu\_g, \; 1/\tau\_a)$
+- Worker completes tasks with quality $q\_t = a + \varepsilon\_t$, where
+  $\varepsilon\_t \sim N(0, \; 1/\tau\_\varepsilon)$
+- Evaluator observes signal $s\_t = q\_t + \eta\_t$, where
+  $\eta\_t \sim N(0, \; 1/\tau\_\eta)$
+  - $\tau\_\eta$ captures **subjectivity of judgment**: lower $\tau\_\eta$ = more subjective
+- Evaluator has type $\theta\_i$ determining:
+  - Subjective belief about average ability by gender: $\hat{\mu}\_g$ (may differ from true $\mu\_g$)
+  - Taste parameter $c\_F$ (disamenity from evaluating female workers)
+  - Subjective belief about other evaluators' type distribution: $\hat{\pi}\_i$
+- Evaluator maximizes payoff $-(v - (q - c\_g))^2$, so optimal evaluation equals $E[q \mid h, s, g] - c\_g$
 
 ### Key Definitions
 
-- **Belief-based partiality**: $\hat{\mu}_M > \hat{\mu}_F$ (believes men have higher average ability)
-  - Unbiased if $\hat{\mu}_g = \mu_g$; biased otherwise
-- **Preference-based partiality**: $c_F > 0$ (taste against women)
+- **Belief-based partiality**: $\hat{\mu}\_M > \hat{\mu}\_F$ (believes men have higher average ability)
+  - Unbiased if $\hat{\mu}\_g = \mu\_g$; biased otherwise
+- **Preference-based partiality**: $c\_F > 0$ (taste against women)
 - **Discrimination**: $D(h, s) = v(M, h, s) - v(F, h, s) > 0$ (men get higher evaluations for same history and signal)
 
 ### Key Formula — Initial Discrimination (Eq. 5)
 
-$$D(h_1, s_1) = \frac{\tau_q}{\tau_q + \tau_\eta} (\hat{\mu}_M - \hat{\mu}_F) + c_F$$
+$$D(h\_1, s\_1) = \frac{\tau\_q}{\tau\_q + \tau\_\eta} (\hat{\mu}\_M - \hat{\mu}\_F) + c\_F$$
 
-where $\tau_q = \frac{\tau_a \cdot \tau_\varepsilon}{\tau_a + \tau_\varepsilon}$ is the precision of the prior on quality.
+where $\tau\_q = \frac{\tau\_a \cdot \tau\_\varepsilon}{\tau\_a + \tau\_\varepsilon}$ is the precision of the prior on quality.
 
 ### Proposition 1 (Subjectivity of Judgment)
 
-- If belief-based partiality: initial discrimination is **decreasing** in $\tau_\eta$ (more objective → less discrimination)
-- If preference-based partiality: initial discrimination is **constant** w.r.t. $\tau_\eta$
-- In the limit $\tau_\eta \to \infty$ (perfectly objective): discrimination exists iff preference-based partiality exists
+- If belief-based partiality: initial discrimination is **decreasing** in $\tau\_\eta$ (more objective → less discrimination)
+- If preference-based partiality: initial discrimination is **constant** w.r.t. $\tau\_\eta$
+- In the limit $\tau\_\eta \to \infty$ (perfectly objective): discrimination exists iff preference-based partiality exists
 
 ### Detailed Derivation of Eq. 5
 
-**Step 1: Prior distribution of quality.** Since $q_1 = a + \varepsilon_1$ with $a \sim N(\hat{\mu}_g, 1/\tau_a)$ and $\varepsilon_1 \sim N(0, 1/\tau_\varepsilon)$ independent, the sum of two independent normals gives:
+**Step 1: Prior distribution of quality.** Since $q\_1 = a + \varepsilon\_1$, where:
+- $a \sim N(\hat{\mu}\_g, \; 1/\tau\_a)$
+- $\varepsilon\_1 \sim N(0, \; 1/\tau\_\varepsilon)$
 
-$$q_1 \sim N\left(\hat{\mu}_g, \; \frac{1}{\tau_a} + \frac{1}{\tau_\varepsilon}\right)$$
+are independent, the sum of two independent normals gives:
 
-The precision of this prior is $\tau_q = \frac{\tau_a \cdot \tau_\varepsilon}{\tau_a + \tau_\varepsilon}$.
+$$q\_1 \sim N\left(\hat{\mu}\_g, \; \frac{1}{\tau\_a} + \frac{1}{\tau\_\varepsilon}\right)$$
 
-**Step 2: Posterior after observing signal.** The signal is $s_1 = q_1 + \eta_1$ where $\eta_1 \sim N(0, 1/\tau_\eta)$. This is standard Normal-Normal Bayesian updating (prior precision $\tau_q$, signal precision $\tau_\eta$), giving a precision-weighted average of prior mean and signal:
+The precision of this prior is $\tau\_q = \frac{\tau\_a \cdot \tau\_\varepsilon}{\tau\_a + \tau\_\varepsilon}$.
 
-$$E[q_1 \mid s_1, g] = \frac{\tau_q \cdot \hat{\mu}_g + \tau_\eta \cdot s_1}{\tau_q + \tau_\eta}$$
+**Step 2: Posterior after observing signal.** The signal is $s\_1 = q\_1 + \eta\_1$, where $\eta\_1 \sim N(0, \; 1/\tau\_\eta)$. This is standard Normal-Normal Bayesian updating (prior precision $\tau\_q$, signal precision $\tau\_\eta$), giving a precision-weighted average of prior mean and signal:
 
-**Step 3: Optimal evaluation.** From the quadratic loss $-(v - (q - c_g))^2$, the optimal evaluation is the posterior mean minus the taste parameter:
+$$E[q\_1 \mid s\_1, g] = \frac{\tau\_q \cdot \hat{\mu}\_g + \tau\_\eta \cdot s\_1}{\tau\_q + \tau\_\eta}$$
 
-$$v^*(g, h_1, s_1) = \frac{\tau_q \cdot \hat{\mu}_g + \tau_\eta \cdot s_1}{\tau_q + \tau_\eta} - c_g$$
+**Step 3: Optimal evaluation.** From the quadratic loss $-(v - (q - c\_g))^2$, the optimal evaluation is the posterior mean minus the taste parameter:
+
+$$v^*(g, h\_1, s\_1) = \frac{\tau\_q \cdot \hat{\mu}\_g + \tau\_\eta \cdot s\_1}{\tau\_q + \tau\_\eta} - c\_g$$
 
 **Step 4: Discrimination.** Taking the difference $D = v^*(M) - v^*(F)$:
 
-$$D = \frac{\tau_q \hat{\mu}_M + \tau_\eta s_1}{\tau_q + \tau_\eta} - c_M - \frac{\tau_q \hat{\mu}_F + \tau_\eta s_1}{\tau_q + \tau_\eta} + c_F$$
+$$D = \frac{\tau\_q \hat{\mu}\_M + \tau\_\eta s\_1}{\tau\_q + \tau\_\eta} - c\_M - \frac{\tau\_q \hat{\mu}\_F + \tau\_\eta s\_1}{\tau\_q + \tau\_\eta} + c\_F$$
 
-The $s_1$ terms cancel (same signal for both genders), and $c_M = 0$ (normalized), yielding Eq. 5:
+The $s\_1$ terms cancel (same signal for both genders), and $c\_M = 0$ (normalized), yielding Eq. 5:
 
-$$D(h_1, s_1) = \frac{\tau_q}{\tau_q + \tau_\eta}(\hat{\mu}_M - \hat{\mu}_F) + c_F$$
+$$D(h\_1, s\_1) = \frac{\tau\_q}{\tau\_q + \tau\_\eta}(\hat{\mu}\_M - \hat{\mu}\_F) + c\_F$$
 
-**Note on originality:** The Normal-Normal updating framework is standard (Phelps 1972, Aigner & Cain 1977). The social psychology literature (Fiske et al. 1991) already observed that subjectivity increases stereotype reliance. This paper's contribution is formalizing $\tau_\eta$ as an **identification tool** — using variation in signal precision to distinguish belief-based from preference-based discrimination — and extending the framework dynamically.
+**Note on originality:** The Normal-Normal updating framework is standard (Phelps 1972, Aigner & Cain 1977). The social psychology literature (Fiske et al. 1991) already observed that subjectivity increases stereotype reliance. This paper's contribution is formalizing $\tau\_\eta$ as an **identification tool** — using variation in signal precision to distinguish belief-based from preference-based discrimination — and extending the framework dynamically.
 
 ### Derivation (high-level)
 
-From Eq. 5: the belief-based component is weighted by $\frac{\tau_q}{\tau_q + \tau_\eta}$. As $\tau_\eta$ increases (more precise signal), this weight shrinks → belief about group differences matters less. The preference component $c_F$ is additive and independent of $\tau_\eta$.
+From Eq. 5: the belief-based component is weighted by $\frac{\tau\_q}{\tau\_q + \tau\_\eta}$. As $\tau\_\eta$ increases (more precise signal), this weight shrinks → belief about group differences matters less. The preference component $c\_F$ is additive and independent of $\tau\_\eta$.
 
 ### Intuition
 
@@ -109,16 +116,16 @@ When you can perfectly observe quality (e.g., a math answer is correct or not), 
 ### Assumptions
 
 - Single evaluator type with common knowledge of shared beliefs
-- Belief-based partiality ($\hat{\mu}_M > \hat{\mu}_F$), no preference-based partiality ($c_F = 0$)
+- Belief-based partiality ($\hat{\mu}\_M > \hat{\mu}\_F$), no preference-based partiality ($c\_F = 0$)
 - Evaluators correctly model that all others share the same beliefs
 
 ### Key Mechanism
 
 After period 1, a female who received evaluation $v$ must have produced a higher signal than a male with the same evaluation (from Eq. 6):
 
-$$s(v, \hat{\mu}_g) = \frac{\tau_q + \tau_\eta}{\tau_\eta} \cdot v - \frac{\tau_q}{\tau_\eta} \cdot \hat{\mu}_g$$
+$$s(v, \hat{\mu}\_g) = \frac{\tau\_q + \tau\_\eta}{\tau\_\eta} \cdot v - \frac{\tau\_q}{\tau\_\eta} \cdot \hat{\mu}\_g$$
 
-Since $\hat{\mu}_F < \hat{\mu}_M$, we get $s(v, \hat{\mu}_F) > s(v, \hat{\mu}_M)$. So evaluators know the female's evaluation is a stronger signal of ability.
+Since $\hat{\mu}\_F < \hat{\mu}\_M$, we get $s(v, \hat{\mu}\_F) > s(v, \hat{\mu}\_M)$. So evaluators know the female's evaluation is a stronger signal of ability.
 
 ### Proposition 2 (Impossibility of Reversal)
 
@@ -126,7 +133,12 @@ With a single type of evaluator with belief-based partiality and no preference-b
 
 ### Derivation (high-level)
 
-The posterior mean of ability is increasing in the prior mean. Two opposing effects: (i) higher prior mean directly raises posterior (MLRP of prior); (ii) higher prior mean means a lower signal was required to receive the evaluation (MLRP of signal distribution, decreasing in prior mean). The proof shows effect (i) dominates: if you start with $\hat{\mu}_M > \hat{\mu}_F$, then posterior mean for male > posterior mean for female after any common evaluation history. Beliefs converge but never cross.
+The posterior mean of ability is increasing in the prior mean. Two opposing effects:
+
+- (i) higher prior mean directly raises posterior (MLRP of prior)
+- (ii) higher prior mean means a lower signal was required to receive the evaluation (MLRP of signal distribution, decreasing in prior mean)
+
+The proof shows effect (i) dominates: if you start with $\hat{\mu}\_M > \hat{\mu}\_F$, then posterior mean for male > posterior mean for female after any common evaluation history. Beliefs converge but never cross.
 
 ### Intuition
 
@@ -139,26 +151,26 @@ Even though evaluators know the female had to clear a higher bar, the original p
 ### Assumptions
 
 - Two types of evaluators:
-  - **Heuristic type ($\theta_1$)** with probability $p$: has biased belief-based partiality ($\hat{\mu}_M^1 > \hat{\mu}_F^1$), unaware of bias, believes all others are the same type (bias blind spot / false consensus)
-  - **Impartial type ($\theta_2$)** with probability $1-p$: no belief-based partiality ($\hat{\mu}_M^2 = \hat{\mu}_F^2$), aware that heuristic types exist, correctly estimates their prevalence ($\hat{\pi}_2(\theta_1) = p$)
-- Both types agree on average male ability: $\hat{\mu}_M^1 = \hat{\mu}_M^2 = \hat{\mu}_M$
+  - **Heuristic type** ($\theta\_1$) with probability $p$: has biased belief-based partiality ($\hat{\mu}\_M^1 > \hat{\mu}\_F^1$), unaware of bias, believes all others are the same type (bias blind spot / false consensus)
+  - **Impartial type** ($\theta\_2$) with probability $1-p$: no belief-based partiality ($\hat{\mu}\_M^2 = \hat{\mu}\_F^2$), aware that heuristic types exist, correctly estimates their prevalence ($\hat{\pi}\_2(\theta\_1) = p$)
+- Both types agree on average male ability: $\hat{\mu}\_M^1 = \hat{\mu}\_M^2 = \hat{\mu}\_M$
 - No preference-based partiality
 
 ### Key Formula — Initial Aggregate Discrimination (Eq. 7)
 
-$$D(h_1, s_1) = p \cdot \frac{\tau_q}{\tau_q + \tau_\eta} (\hat{\mu}_M - \hat{\mu}_F^1) > 0$$
+$$D(h\_1, s\_1) = p \cdot \frac{\tau\_q}{\tau\_q + \tau\_\eta} (\hat{\mu}\_M - \hat{\mu}\_F^1) > 0$$
 
 Only heuristic types contribute to initial discrimination.
 
 ### Proposition 3 (Possibility of Reversal)
 
-For any initial evaluation $v_1$ (or any second-period signal $s_2$), there exist cutoffs $\bar{p}$ such that for a low enough share of heuristic types ($p \in (0, \bar{p})$) and a high enough signal (or low enough first evaluation), **aggregate discrimination reverses in the second period**: $D(v_1, s_2) < 0$.
+For any initial evaluation $v\_1$ (or any second-period signal $s\_2$), there exist cutoffs $\bar{p}$ such that for a low enough share of heuristic types ($p \in (0, \bar{p})$) and a high enough signal (or low enough first evaluation), **aggregate discrimination reverses in the second period**: $D(v\_1, s\_2) < 0$.
 
 ### Derivation (high-level)
 
 After period 1:
 - Heuristic type: still discriminates against females (by Prop. 2, beliefs don't reverse within a single-type model)
-- Impartial type: knows the female likely faced a biased evaluator → the evaluation is an even stronger signal of her ability → posterior **favors** females ($\hat{\mu}_F^2(v_1) > \hat{\mu}_M^2(v_1)$)
+- Impartial type: knows the female likely faced a biased evaluator → the evaluation is an even stronger signal of her ability → posterior **favors** females ($\hat{\mu}\_F^2(v\_1) > \hat{\mu}\_M^2(v\_1)$)
 
 Aggregate 2nd-period discrimination = weighted average. Non-monotonic in $p$:
 - $p = 0$: no discrimination (all impartial)
@@ -241,9 +253,12 @@ Tests Propositions 2 & 3: if discrimination against novice women reverses for ad
 2. Net votes on Male dummy: coefficient $= -0.62$ (SE $= 0.28$), **significant** → advanced females get more net votes
 
 *Novice + Advanced pooled:*
-3. $\Delta \text{Rep}$: Male $= 2.86$ (SE $1.36$), Advanced $= -2.33$ (SE $1.35$), Male $\times$ Advanced $= -6.02$ (SE $1.91$), **significant**
-4. Net votes: Male $= 0.58$ (SE $0.27$), Advanced $= -0.49$ (SE $0.27$), Male $\times$ Advanced $= -1.20$ (SE $0.38$), **significant**
-5. Binary ($\geq 1$ upvote): Male $= 0.17$ (SE $0.08$), Advanced $= -0.09$ (SE $0.08$), Male $\times$ Advanced $= -0.40$ (SE $0.11$), **significant**
+
+| | Male | Advanced | Male $\times$ Advanced | Constant |
+|---|---|---|---|---|
+| $\Delta \text{Rep}$ | $2.86$ ($1.36$) | $-2.33$ ($1.35$) | $-6.02$ ($1.91$)** | $4.68$ ($0.96$) |
+| Net votes | $0.58$ ($0.27$) | $-0.49$ ($0.27$) | $-1.20$ ($0.38$)** | $0.88$ ($0.19$) |
+| Binary | $0.17$ ($0.08$) | $-0.09$ ($0.08$) | $-0.40$ ($0.11$)** | $0.56$ ($0.06$) |
 
 *Chi-squared tests for difference between Novice and Advanced male coefficients:*
 - $\Delta \text{Rep}$: $\chi^2(1) = 9.88$, $p = 0.002$
@@ -267,13 +282,13 @@ Tests Propositions 2 & 3: if discrimination against novice women reverses for ad
 - Forum's publicly available observational dataset: 315,792 users, July 2010 – March 2017
 - Gender inferred from usernames using Vasilescu, Capiluppi & Serebrenik (2014) algorithm
 - 55% of accounts resolved; of these, 19% female, 81% male
-- Among accounts with $<100$ rep: 21% female; accounts with 100–240 rep (Advanced range): 13% female
+- Among accounts with <100 rep: 21% female; accounts with 100–240 rep (Advanced range): 13% female
 - Proprietary dataset from the forum: identifies specific users who voted on experimental posts + their historical activity
 
 ### Analyses and Results
 
 **1. Attrition (rules out differential exit by gender):**
-- Probit: $\Pr(\text{generate next post})$ on gender, $\log(\text{reputation earned on prior post})$, interaction
+- Probit: $\Pr(\text{generate next post})$ on gender, $\log(\text{rep earned on prior post})$, interaction
 - Gender and interaction terms **not significant** for any transition (1st→2nd, 2nd→3rd, ..., pooled)
 - Conclusion: no differential attrition → reversal not driven by selection
 
