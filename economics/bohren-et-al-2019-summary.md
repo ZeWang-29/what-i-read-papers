@@ -144,18 +144,45 @@ Since $\hat{\mu}\_F < \hat{\mu}\_M$, we have $-\hat{\mu}\_F > -\hat{\mu}\_M$, th
 
 With a single type of evaluator with belief-based partiality and no preference-based partiality: fixing an evaluation history, **discrimination decreases across periods but never reverses**.
 
-### Derivation (high-level)
+### Detailed Derivation: Why Effect (i) Dominates
 
-The posterior mean of ability is increasing in the prior mean. Two opposing effects:
+Two opposing effects on the posterior mean of ability:
+- **(i) Prior effect**: higher prior mean $\hat{\mu}\_g$ directly raises posterior
+- **(ii) Signal effect**: higher prior mean → lower inferred signal from Eq. 6 → pulls posterior down
 
-- (i) higher prior mean directly raises posterior (MLRP of prior)
-- (ii) higher prior mean means a lower signal was required to receive the evaluation (MLRP of signal distribution, decreasing in prior mean)
+We can prove (i) always wins algebraically.
 
-The proof shows effect (i) dominates: if you start with $\hat{\mu}\_M > \hat{\mu}\_F$, then posterior mean for male > posterior mean for female after any common evaluation history. Beliefs converge but never cross.
+**Step 1.** The signal $s\_1 = a + \varepsilon\_1 + \eta\_1$ is a noisy signal of ability $a$, with precision:
+
+$$\tau\_{s} = \frac{\tau\_\varepsilon \cdot \tau\_\eta}{\tau\_\varepsilon + \tau\_\eta}$$
+
+**Step 2.** Standard Normal-Normal update gives the posterior mean of ability:
+
+$$E[a \mid s\_1, g] = \frac{\tau\_a \cdot \hat{\mu}\_g + \tau\_{s} \cdot s\_1}{\tau\_a + \tau\_{s}}$$
+
+**Step 3.** Substitute Eq. 6 ($s\_1 = \frac{\tau\_q + \tau\_\eta}{\tau\_\eta} v\_1 - \frac{\tau\_q}{\tau\_\eta} \hat{\mu}\_g$) to express the posterior in terms of $v\_1$ and $\hat{\mu}\_g$:
+
+$$E[a \mid v\_1, g] = \frac{\tau\_a \cdot \hat{\mu}\_g + \tau\_{s} \left[\frac{\tau\_q + \tau\_\eta}{\tau\_\eta} v\_1 - \frac{\tau\_q}{\tau\_\eta} \hat{\mu}\_g\right]}{\tau\_a + \tau\_{s}}$$
+
+**Step 4.** Collect terms on $\hat{\mu}\_g$. Its coefficient is:
+
+$$\frac{\tau\_a - \frac{\tau\_{s} \cdot \tau\_q}{\tau\_\eta}}{\tau\_a + \tau\_{s}}$$
+
+**Step 5.** Show the numerator is positive. Substituting $\tau\_{s} = \frac{\tau\_\varepsilon \tau\_\eta}{\tau\_\varepsilon + \tau\_\eta}$ and $\tau\_q = \frac{\tau\_a \tau\_\varepsilon}{\tau\_a + \tau\_\varepsilon}$:
+
+$$\frac{\tau\_{s} \cdot \tau\_q}{\tau\_\eta} = \frac{\tau\_a \tau\_\varepsilon^2}{(\tau\_\varepsilon + \tau\_\eta)(\tau\_a + \tau\_\varepsilon)}$$
+
+So the numerator becomes:
+
+$$\tau\_a \left[1 - \frac{\tau\_\varepsilon^2}{(\tau\_\varepsilon + \tau\_\eta)(\tau\_a + \tau\_\varepsilon)}\right] = \tau\_a \cdot \frac{\tau\_\varepsilon \tau\_a + \tau\_\eta \tau\_a + \tau\_\eta \tau\_\varepsilon}{(\tau\_\varepsilon + \tau\_\eta)(\tau\_a + \tau\_\varepsilon)}$$
+
+Since all precisions are strictly positive, the numerator is **always positive**.
+
+**Conclusion:** The coefficient on $\hat{\mu}\_g$ is always positive → posterior mean is increasing in prior mean → $\hat{\mu}\_M > \hat{\mu}\_F$ implies posterior for male > posterior for female after any common evaluation $v\_1$. By induction, this holds for any evaluation history. **Beliefs converge but never cross.**
 
 ### Intuition
 
-Even though evaluators know the female had to clear a higher bar, the original prior advantage for males still dominates the update. Think of it as: the prior gets diluted by new evidence but never fully overwhelmed when everyone agrees on the same model. The gap shrinks but the ordering is preserved.
+Effect (ii) (the signal compensation) gets "diluted" by two layers of noise ($\varepsilon$ and $\eta$), while effect (i) (the prior) acts directly on the posterior. The remaining positive term $\tau\_\varepsilon \tau\_a + \tau\_\eta \tau\_a + \tau\_\eta \tau\_\varepsilon$ reflects exactly these noise sources — they guarantee the prior can never be fully overwhelmed by the endogenous signal effect.
 
 ---
 
