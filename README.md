@@ -6,6 +6,7 @@ This is to record what I read and summaries.
 
 - `ai/` — AI research papers
 - `economics/` — Economics research papers
+- `interdisciplinary/` — Interdisciplinary papers (neuroscience, linguistics, cognitive science, etc.)
 
 ## Naming Convention
 
