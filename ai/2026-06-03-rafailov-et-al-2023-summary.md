@@ -73,13 +73,13 @@ $$r(x, y) = \beta \log \frac{\pi\_r(y \mid x)}{\pi\_{\text{ref}}(y \mid x)} + \b
 
 ### Step 3: Substitute into Bradley-Terry and cancel $Z(x)$
 
-The Bradley-Terry model depends only on the **difference** of rewards $r^{*}(x, y\_1) - r^{*}(x, y\_2)$. When we substitute the reparameterization, the $\beta \log Z(x)$ terms cancel:
+The Bradley-Terry model depends only on the **difference** of rewards between two completions. When we substitute the reparameterization, the $\beta \log Z(x)$ terms cancel:
 
 $$p^{*}(y\_1 \succ y\_2 \mid x) = \sigma\left(\beta \log \frac{\pi^{*}(y\_1 \mid x)}{\pi\_{\text{ref}}(y\_1 \mid x)} - \beta \log \frac{\pi^{*}(y\_2 \mid x)}{\pi\_{\text{ref}}(y\_2 \mid x)}\right)$$
 
 ### Step 4: The DPO loss
 
-Replace the optimal $\pi^{*}$ with a parametric policy $\pi\_\theta$ and maximize likelihood:
+Replace the optimal policy $\pi^{*}$ with a parametric $\pi\_\theta$ and maximize likelihood:
 
 $$\mathcal{L}\_{\text{DPO}}(\pi\_\theta; \pi\_{\text{ref}}) = -\mathbb{E}\_{(x, y\_w, y\_l) \sim D} \left[ \log \sigma\left(\beta \log \frac{\pi\_\theta(y\_w \mid x)}{\pi\_{\text{ref}}(y\_w \mid x)} - \beta \log \frac{\pi\_\theta(y\_l \mid x)}{\pi\_{\text{ref}}(y\_l \mid x)}\right) \right]$$
 
