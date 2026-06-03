@@ -16,6 +16,6 @@ Example: `2026-06-01-bohren-et-al-2019-summary.md`
 
 ## Workflow
 
-1. Download PDF to the corresponding directory (`ai/` or `economics/`)
+1. Download PDF to the corresponding directory (`ai/`, `economics/`, or `interdisciplinary/`)
 2. Convert to markdown: `markitdown paper.pdf -o paper.md`
 3. Read the markdown and write a summary
