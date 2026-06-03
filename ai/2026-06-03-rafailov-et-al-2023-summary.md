@@ -34,7 +34,7 @@ The key insight of DPO is a **change of variables**: the standard RLHF objective
 
 **Stage 2: Reward modeling.** Sample pairs $(y\_1, y\_2) \sim \pi\_{\text{SFT}}(\cdot \mid x)$, collect human preference labels $y\_w \succ y\_l$. Fit reward model $r\_\phi(x, y)$ using Bradley-Terry model:
 
-$$p^*(y\_1 \succ y\_2 \mid x) = \frac{\exp(r^*(x, y\_1))}{\exp(r^*(x, y\_1)) + \exp(r^*(x, y\_2))} = \sigma(r^*(x, y\_1) - r^*(x, y\_2))$$
+$$p^{*}(y\_1 \succ y\_2 \mid x) = \frac{\exp(r^{*}(x, y\_1))}{\exp(r^{*}(x, y\_1)) + \exp(r^{*}(x, y\_2))} = \sigma(r^{*}(x, y\_1) - r^{*}(x, y\_2))$$
 
 Reward model loss (binary cross-entropy):
 
@@ -73,13 +73,13 @@ $$r(x, y) = \beta \log \frac{\pi\_r(y \mid x)}{\pi\_{\text{ref}}(y \mid x)} + \b
 
 ### Step 3: Substitute into Bradley-Terry and cancel $Z(x)$
 
-The Bradley-Terry model depends only on the **difference** of rewards $r^*(x, y\_1) - r^*(x, y\_2)$. When we substitute the reparameterization, the $\beta \log Z(x)$ terms cancel:
+The Bradley-Terry model depends only on the **difference** of rewards $r^{*}(x, y\_1) - r^{*}(x, y\_2)$. When we substitute the reparameterization, the $\beta \log Z(x)$ terms cancel:
 
-$$p^*(y\_1 \succ y\_2 \mid x) = \sigma\left(\beta \log \frac{\pi^*(y\_1 \mid x)}{\pi\_{\text{ref}}(y\_1 \mid x)} - \beta \log \frac{\pi^*(y\_2 \mid x)}{\pi\_{\text{ref}}(y\_2 \mid x)}\right)$$
+$$p^{*}(y\_1 \succ y\_2 \mid x) = \sigma\left(\beta \log \frac{\pi^{*}(y\_1 \mid x)}{\pi\_{\text{ref}}(y\_1 \mid x)} - \beta \log \frac{\pi^{*}(y\_2 \mid x)}{\pi\_{\text{ref}}(y\_2 \mid x)}\right)$$
 
 ### Step 4: The DPO loss
 
-Replace the optimal $\pi^*$ with a parametric policy $\pi\_\theta$ and maximize likelihood:
+Replace the optimal $\pi^{*}$ with a parametric policy $\pi\_\theta$ and maximize likelihood:
 
 $$\mathcal{L}\_{\text{DPO}}(\pi\_\theta; \pi\_{\text{ref}}) = -\mathbb{E}\_{(x, y\_w, y\_l) \sim D} \left[ \log \sigma\left(\beta \log \frac{\pi\_\theta(y\_w \mid x)}{\pi\_{\text{ref}}(y\_w \mid x)} - \beta \log \frac{\pi\_\theta(y\_l \mid x)}{\pi\_{\text{ref}}(y\_l \mid x)}\right) \right]$$
 
