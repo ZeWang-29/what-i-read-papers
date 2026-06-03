@@ -34,7 +34,7 @@ The key insight of DPO is a **change of variables**: the standard RLHF objective
 
 **Stage 2: Reward modeling.** Sample response pairs from the SFT model, collect human preference labels (which response is better). Fit a reward model using the Bradley-Terry model:
 
-$$p^{*}(y_1 \succ y_2 \mid x) = \frac{\exp(r^{*}(x, y_1))}{\exp(r^{*}(x, y_1)) + \exp(r^{*}(x, y_2))} = \sigma(r^{*}(x, y_1) - r^{*}(x, y_2))$$
+$$p^{\ast}(y_1 \succ y_2 \mid x) = \frac{\exp(r^{\ast}(x, y_1))}{\exp(r^{\ast}(x, y_1)) + \exp(r^{\ast}(x, y_2))} = \sigma(r^{\ast}(x, y_1) - r^{\ast}(x, y_2))$$
 
 Reward model loss (binary cross-entropy):
 
@@ -75,7 +75,7 @@ $$r(x, y) = \beta \log \frac{\pi_r(y \mid x)}{\pi_{\text{ref}}(y \mid x)} + \bet
 
 The Bradley-Terry model depends only on the **difference** of rewards between two completions. When we substitute the reparameterization, the $\beta \log Z(x)$ terms cancel:
 
-$$p^{*}(y_1 \succ y_2 \mid x) = \sigma\left(\beta \log \frac{\pi^{*}(y_1 \mid x)}{\pi_{\text{ref}}(y_1 \mid x)} - \beta \log \frac{\pi^{*}(y_2 \mid x)}{\pi_{\text{ref}}(y_2 \mid x)}\right)$$
+$$p^{\ast}(y_1 \succ y_2 \mid x) = \sigma\left(\beta \log \frac{\pi^{\ast}(y_1 \mid x)}{\pi_{\text{ref}}(y_1 \mid x)} - \beta \log \frac{\pi^{\ast}(y_2 \mid x)}{\pi_{\text{ref}}(y_2 \mid x)}\right)$$
 
 ### Step 4: The DPO loss
 
