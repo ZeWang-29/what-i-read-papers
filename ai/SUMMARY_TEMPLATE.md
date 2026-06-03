@@ -11,7 +11,8 @@ Example: `2026-06-03-rafailov-et-al-2023-summary.md`
 1. Download PDF to `ai/`
 2. Convert: `markitdown paper.pdf -o paper.md`
 3. Write summary following the structure below. Use LaTeX for all math: `$...$` for inline, `$$...$$` for display equations
-4. **Iterate**: Each paper read is also an opportunity to refine this template.
+4. **Prefer plain words first, math second.** Always explain the method and training loop in plain words before presenting equations. Math is just a formal expression of the same logic — if the words are clear, the equations follow naturally. A reader should be able to understand the core idea without reading any formulas.
+5. **Iterate**: Each paper read is also an opportunity to refine this template.
 
 ## Note on AI Papers
 

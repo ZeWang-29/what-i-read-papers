@@ -46,6 +46,20 @@ $$\max_{\pi_\theta} \; \mathbb{E}_{x \sim D, \, y \sim \pi_\theta(\cdot|x)} \lef
 
 where $\beta$ controls the KL penalty and the reference policy is the SFT model.
 
+### PPO Training Loop (in plain words)
+
+Before PPO starts, you already have a trained reward model (from Stage 2) and an SFT model.
+
+1. Give the model a prompt, let it **generate** a complete response (token by token, slow)
+2. The reward model scores the complete response — one number for the whole thing
+3. A value function estimates, at each token position, "from here onwards, how much score can I expect in the future?" This is needed because the reward model only gives one score at the very end, but you need to figure out which individual tokens were good or bad
+4. Compute advantage at each token: actual outcome minus the value function's prediction. Positive = this token was better than expected, negative = worse
+5. Update the policy: increase probability of good tokens, decrease probability of bad tokens (with clipping to prevent too-large updates)
+6. Update the value function: make its predictions more accurate based on what actually happened
+7. Repeat
+
+This requires 3 networks (policy + reward model + value function), requires generating responses every iteration, and the value function's estimates are noisy — especially early in training and for tokens far from the end. This is why PPO is unstable.
+
 ### Why this is hard
 
 - Must train a separate reward model
@@ -90,6 +104,19 @@ The DPO loss does two things simultaneously:
 - **Decreases** the log probability of dispreferred completions $y\_l$
 
 But it does so with an **adaptive weight**: examples where the implicit reward model incorrectly ranks completions get higher gradient weight. The implicit reward is $\hat{r}\_\theta(x, y) = \beta \log \frac{\pi\_\theta(y|x)}{\pi\_{\text{ref}}(y|x)}$. Without this weighting, the model degenerates (Appendix Table 3).
+
+### DPO Training Loop (in plain words)
+
+Before DPO starts, you have an SFT model (used as the fixed reference) and a dataset of preferences (prompt + good response + bad response, already collected).
+
+1. Take a batch from the dataset: a prompt, a good response, a bad response
+2. Feed the good response into the current model, get its probability. Feed the bad response in, get its probability. The responses are already in the dataset — the model does NOT generate anything, just computes probabilities (fast)
+3. Feed both responses into the reference model (the fixed SFT model, never updated), get its probabilities. This serves as an anchor — "how likely were these responses under the original model?"
+4. Compute loss: the current model should assign relatively higher probability to the good response (compared to reference) and relatively lower probability to the bad response (compared to reference). If it doesn't, the loss is high
+5. Backpropagate, update the current model's parameters. The reference model stays frozen
+6. Repeat
+
+This requires only 1 trainable network (the policy). No generation, no reward model, no value function, no RL. Just supervised learning on existing preference pairs. The KL constraint is built into the loss automatically — if the model drifts too far from the reference, the loss penalizes it.
 
 ### Why this is elegant
 
