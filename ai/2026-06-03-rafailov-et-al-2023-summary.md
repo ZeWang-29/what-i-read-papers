@@ -30,21 +30,21 @@ The key insight of DPO is a **change of variables**: the standard RLHF objective
 
 ### Existing Pipeline (3 stages)
 
-**Stage 1: SFT.** Fine-tune a pre-trained LM on high-quality data → $\pi\_{\text{SFT}}$
+**Stage 1: SFT.** Fine-tune a pre-trained LM on high-quality data to obtain $\pi\_{\text{SFT}}$.
 
-**Stage 2: Reward modeling.** Sample pairs $(y\_1, y\_2) \sim \pi\_{\text{SFT}}(\cdot \mid x)$, collect human preference labels $y\_w \succ y\_l$. Fit reward model $r\_\phi(x, y)$ using Bradley-Terry model:
+**Stage 2: Reward modeling.** Sample response pairs from the SFT model, collect human preference labels (which response is better). Fit a reward model using the Bradley-Terry model:
 
-$$p^{*}(y\_1 \succ y\_2 \mid x) = \frac{\exp(r^{*}(x, y\_1))}{\exp(r^{*}(x, y\_1)) + \exp(r^{*}(x, y\_2))} = \sigma(r^{*}(x, y\_1) - r^{*}(x, y\_2))$$
+$$p^{*}(y_1 \succ y_2 \mid x) = \frac{\exp(r^{*}(x, y_1))}{\exp(r^{*}(x, y_1)) + \exp(r^{*}(x, y_2))} = \sigma(r^{*}(x, y_1) - r^{*}(x, y_2))$$
 
 Reward model loss (binary cross-entropy):
 
-$$\mathcal{L}\_R(r\_\phi, D) = -\mathbb{E}\_{(x, y\_w, y\_l) \sim D} \left[ \log \sigma(r\_\phi(x, y\_w) - r\_\phi(x, y\_l)) \right]$$
+$$\mathcal{L}_R(r_\phi, D) = -\mathbb{E}_{(x, y_w, y_l) \sim D} \left[ \log \sigma(r_\phi(x, y_w) - r_\phi(x, y_l)) \right]$$
 
 **Stage 3: RL fine-tuning.** Optimize policy to maximize reward while staying close to reference:
 
-$$\max\_{\pi\_\theta} \; \mathbb{E}\_{x \sim D, \, y \sim \pi\_\theta(\cdot|x)} \left[ r\_\phi(x, y) \right] - \beta \, D\_{\text{KL}} \left[ \pi\_\theta(y|x) \| \pi\_{\text{ref}}(y|x) \right]$$
+$$\max_{\pi_\theta} \; \mathbb{E}_{x \sim D, \, y \sim \pi_\theta(\cdot|x)} \left[ r_\phi(x, y) \right] - \beta \, D_{\text{KL}} \left[ \pi_\theta(y|x) \| \pi_{\text{ref}}(y|x) \right]$$
 
-where $\beta$ controls the KL penalty and $\pi\_{\text{ref}} = \pi\_{\text{SFT}}$.
+where $\beta$ controls the KL penalty and the reference policy is the SFT model.
 
 ### Why this is hard
 
@@ -59,29 +59,29 @@ where $\beta$ controls the KL penalty and $\pi\_{\text{ref}} = \pi\_{\text{SFT}}
 
 ### Step 1: Closed-form optimal policy
 
-The KL-constrained reward maximization (Eq. 3) has a known closed-form solution:
+The KL-constrained reward maximization has a known closed-form solution:
 
-$$\pi\_r(y \mid x) = \frac{1}{Z(x)} \pi\_{\text{ref}}(y \mid x) \exp\left(\frac{1}{\beta} r(x, y)\right)$$
+$$\pi_r(y \mid x) = \frac{1}{Z(x)} \pi_{\text{ref}}(y \mid x) \exp\left(\frac{1}{\beta} r(x, y)\right)$$
 
-where $Z(x) = \sum\_y \pi\_{\text{ref}}(y \mid x) \exp\left(\frac{1}{\beta} r(x, y)\right)$ is the partition function.
+where $Z(x) = \sum_y \pi_{\text{ref}}(y \mid x) \exp\left(\frac{1}{\beta} r(x, y)\right)$ is the partition function.
 
 ### Step 2: Rearrange to express reward in terms of policy
 
 Take log of both sides and rearrange:
 
-$$r(x, y) = \beta \log \frac{\pi\_r(y \mid x)}{\pi\_{\text{ref}}(y \mid x)} + \beta \log Z(x)$$
+$$r(x, y) = \beta \log \frac{\pi_r(y \mid x)}{\pi_{\text{ref}}(y \mid x)} + \beta \log Z(x)$$
 
 ### Step 3: Substitute into Bradley-Terry and cancel $Z(x)$
 
 The Bradley-Terry model depends only on the **difference** of rewards between two completions. When we substitute the reparameterization, the $\beta \log Z(x)$ terms cancel:
 
-$$p^{*}(y\_1 \succ y\_2 \mid x) = \sigma\left(\beta \log \frac{\pi^{*}(y\_1 \mid x)}{\pi\_{\text{ref}}(y\_1 \mid x)} - \beta \log \frac{\pi^{*}(y\_2 \mid x)}{\pi\_{\text{ref}}(y\_2 \mid x)}\right)$$
+$$p^{*}(y_1 \succ y_2 \mid x) = \sigma\left(\beta \log \frac{\pi^{*}(y_1 \mid x)}{\pi_{\text{ref}}(y_1 \mid x)} - \beta \log \frac{\pi^{*}(y_2 \mid x)}{\pi_{\text{ref}}(y_2 \mid x)}\right)$$
 
 ### Step 4: The DPO loss
 
-Replace the optimal policy $\pi^{*}$ with a parametric $\pi\_\theta$ and maximize likelihood:
+Replace the optimal policy with a parametric $\pi\_\theta$ and maximize likelihood:
 
-$$\mathcal{L}\_{\text{DPO}}(\pi\_\theta; \pi\_{\text{ref}}) = -\mathbb{E}\_{(x, y\_w, y\_l) \sim D} \left[ \log \sigma\left(\beta \log \frac{\pi\_\theta(y\_w \mid x)}{\pi\_{\text{ref}}(y\_w \mid x)} - \beta \log \frac{\pi\_\theta(y\_l \mid x)}{\pi\_{\text{ref}}(y\_l \mid x)}\right) \right]$$
+$$\mathcal{L}_{\text{DPO}}(\pi_\theta; \pi_{\text{ref}}) = -\mathbb{E}_{(x, y_w, y_l) \sim D} \left[ \log \sigma\left(\beta \log \frac{\pi_\theta(y_w \mid x)}{\pi_{\text{ref}}(y_w \mid x)} - \beta \log \frac{\pi_\theta(y_l \mid x)}{\pi_{\text{ref}}(y_l \mid x)}\right) \right]$$
 
 ### Intuition
 
@@ -89,7 +89,7 @@ The DPO loss does two things simultaneously:
 - **Increases** the log probability of preferred completions $y\_w$
 - **Decreases** the log probability of dispreferred completions $y\_l$
 
-But it does so with an **adaptive weight**: examples where the implicit reward model $\hat{r}\_\theta(x, y) = \beta \log \frac{\pi\_\theta(y|x)}{\pi\_{\text{ref}}(y|x)}$ incorrectly ranks completions get higher gradient weight. Without this weighting, the model degenerates (Appendix Table 3).
+But it does so with an **adaptive weight**: examples where the implicit reward model incorrectly ranks completions get higher gradient weight. The implicit reward is $\hat{r}\_\theta(x, y) = \beta \log \frac{\pi\_\theta(y|x)}{\pi\_{\text{ref}}(y|x)}$. Without this weighting, the model degenerates (Appendix Table 3).
 
 ### Why this is elegant
 
@@ -103,15 +103,15 @@ The entire RLHF pipeline (reward model + PPO + KL constraint) is collapsed into 
 
 The implicit reward defined by DPO is:
 
-$$\hat{r}\_\theta(x, y) = \beta \log \frac{\pi\_\theta(y \mid x)}{\pi\_{\text{ref}}(y \mid x)}$$
+$$\hat{r}_\theta(x, y) = \beta \log \frac{\pi_\theta(y \mid x)}{\pi_{\text{ref}}(y \mid x)}$$
 
-**Theorem 1**: The reparameterization $r(x, y) = \beta \log \frac{\pi(y|x)}{\pi\_{\text{ref}}(y|x)}$ can represent **all** reward classes consistent with the Bradley-Terry model. No expressiveness is lost.
+**Theorem 1**: This reparameterization can represent **all** reward classes consistent with the Bradley-Terry model. No expressiveness is lost.
 
 **Key idea**: Reward functions that differ by only a function of $x$ (not $y$) form an equivalence class — they induce the same preferences and the same optimal policy. The DPO reparameterization simply selects a canonical member from each equivalence class.
 
 ### Instability of PPO (actor-critic)
 
-The paper shows that PPO's objective (Eq. 10) contains a normalization term (the partition function / soft value function) that, if not properly estimated, causes high-variance gradients. PPO handles this with a learned value function (hard to optimize) or a single-sample baseline (noisy). DPO's reparameterization sidesteps this entirely — the partition function cancels analytically.
+The paper shows that PPO's objective contains a normalization term (the partition function / soft value function) that, if not properly estimated, causes high-variance gradients. PPO handles this with a learned value function (hard to optimize) or a single-sample baseline (noisy). DPO's reparameterization sidesteps this entirely — the partition function cancels analytically.
 
 ---
 
